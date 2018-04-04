@@ -1,24 +1,43 @@
 import * as React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Navigation from './Navigation';
 import UsersTable from './UsersTable';
-import AddUserForm from './AddUserForm';
+import UserForm from './UserForm';
 
-class App extends React.Component {
-    render() {
+type State = {
+    data: {imie: string, nazwisko: string, wiek: number}[]
+}
+
+type Props = {
+
+}
+
+class App extends React.Component<Props, State> {
+    zmienna: string = 'amwdomaowd';
+    constructor(props: Props){
+        super(props);
+        this.state = {
+            data: [
+                {imie: 'Janusz', nazwisko: 'tracz', wiek: 24},
+                {imie: 'Andrzej', nazwisko: 'tracz', wiek: 24},
+                {imie: 'Zbyszek', nazwisko: 'tracz', wiek: 24}
+                ]
+        }
+    }
+
+    addUser = (a: {imie: string, nazwisko: string, wiek: number}) => {
+        let dataCopy = this.state.data.slice();
+        dataCopy.push(a);
+        console.log('user.............', a);
+        this.setState({data: dataCopy});
+        console.log(this.state.data);
+    }
+
+    render(){
         return (
             <div>
-                <BrowserRouter>
-                    <div>
-                        <Navigation />
-                        <Switch>
-                            <Route path="/users" component={UsersTable} />
-                            <Route path="/add-user" component={AddUserForm} />
-                        </Switch>
-                    </div>
-                </BrowserRouter>
+                <UserForm addUser={this.addUser}/>
+                <UsersTable users={this.state.data}/>
             </div>
-        );
+        )
     }
 }
 

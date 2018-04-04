@@ -1,53 +1,37 @@
 import * as React from 'react';
-import { Table, Icon, Divider } from 'antd';
 
-const columns = [{
-    title: 'ID',
-    dataIndex: 'id',
-    key: 'id',
-}, {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-}, {
-    title: 'Surname',
-    dataIndex: 'surname',
-    key: 'surname',
-}, {
-    title: 'Location',
-    dataIndex: 'location',
-    key: 'location',
-}];
+const UsersTable = (props) => {
+    let users = props.users;
 
-const data = [{
-    key: '1',
-    id: 1,
-    name: 'John',
-    surname: 'Brown',
-    location: 'lublin'
-}, {
-    key: '2',
-    id: 2,
-    name: 'Jim',
-    surname: 'Green',
-    location: 'lublin'
-}, {
-    key: '3',
-    id: 3,
-    name: 'Joe',
-    surname: 'Black',
-    location: 'lublin'
-}];
+    const userList = users.map((singleUser, index)=>{
+        console.log('imie: ', singleUser.imie);
+        return (
+            <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{singleUser.imie}</td>
+                <td>{singleUser.nazwisko}</td>
+                <td>{singleUser.wiek}</td>
+            </tr>
+        )
+    });
+    console.log('users', users);
+    return (
+        <table className="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Wiek</th>
+            </tr>
+            </thead>
+            <tbody>
+            {userList}
+            </tbody>
+        </table>
+    );
+}
 
-const UsersTable = () => (
-    <>
-        <div className="row">
-            <div className="col-md-7 py-5 px-3 mx-auto" data-div="list">
-                <Table columns={columns} dataSource={data} />
-            </div>
-        </div>
-    </>
 
-);
 
 export default UsersTable;
