@@ -1,44 +1,53 @@
 import * as React from 'react';
-import UsersTable from './UsersTable';
-import UserForm from './UserForm';
+import InputForm from './Content/InputForm';
+import UsersList from './Content/UsersList';
+import AppHeader from './Header/AppHeader';
+import './app.css';
 
-type State = {
-    data: {imie: string, nazwisko: string, wiek: number}[]
-}
-
-type Props = {
+interface Props {
 
 }
 
-class App extends React.Component<Props, State> {
-    zmienna: string = 'amwdomaowd';
-    constructor(props: Props){
+interface State {
+    users: {name: string, surname: string, age: number}[],
+    toogleForm: boolean,
+    toogleList: boolean
+}
+
+class App extends React.Component<Props, State>{
+
+    constructor(props){
         super(props);
+
         this.state = {
-            data: [
-                {imie: 'Janusz', nazwisko: 'tracz', wiek: 24},
-                {imie: 'Andrzej', nazwisko: 'tracz', wiek: 24},
-                {imie: 'Zbyszek', nazwisko: 'tracz', wiek: 24}
-                ]
+            users: [],
+            toogleForm: true,
+            toogleList: true
         }
     }
 
-    addUser = (a: {imie: string, nazwisko: string, wiek: number}) => {
-        let dataCopy = this.state.data.slice();
-        dataCopy.push(a);
-        console.log('user.............', a);
-        this.setState({data: dataCopy});
-        console.log(this.state.data);
+    showList = () => {
+        this.setState({toogleList: !this.state.toogleList});
+        console.log(this.state.toogleList);
+    }
+    showForm = () => {
+        this.setState({toogleForm: !this.state.toogleForm});
+        console.log(this.state.toogleForm);
+
     }
 
     render(){
-        return (
-            <div>
-                <UserForm addUser={this.addUser}/>
-                <UsersTable users={this.state.data}/>
-            </div>
-        )
-    }
+            return (
+                <div className={'app'}>
+                    <AppHeader showList={this.showList} showForm={this.showForm}/>
+                    <div className={'content'}>
+                        <InputForm toggle={this.state.toogleForm}/>
+                        <UsersList toggle={this.state.toogleList}/>
+                    </div>
+
+                </div>
+            )
+        }
 }
 
 export default App;
