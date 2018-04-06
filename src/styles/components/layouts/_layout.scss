@@ -1,0 +1,45 @@
+@import './_formSection';
+
+*{
+  //font-family: 'Jua', sans-serif;
+  font-family: 'Muli', sans-serif;
+}
+
+.app{
+  width: 80%;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  header{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin: 10px 0px;
+    button{
+      width: 100%;
+    }
+    :hover{
+      -webkit-transform: scale(1.1);
+      -moz-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      -o-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+  }
+  .content{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    .formSection{
+      display: flex;
+      flex: 1 0 0;
+      justify-content: center;
+      }
+    .usersList{
+      display: flex;
+      flex: 1 0 0;
+      justify-content: center;
+    }
+  }
+}
