@@ -1,3 +1,11 @@
 input{
   margin-left: 10px;
 }
+
+input.warning{
+  border: 1px solid red;
+}
+
+input.success{
+  border: 1px solid greenyellow;
+}

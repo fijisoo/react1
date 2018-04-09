@@ -1,37 +1,45 @@
-var express = require('express');
-var app = express();
-var path = require("path");
-var bodyParser = require('body-parser');
+const express = require('express');
 
-let users = [];
+const app = express();
+const path = require('path');
+const bodyParser = require('body-parser');
 
-function divideUsers(arr, elemsPerPage, currentPage) {
-    return arr.slice(elemsPerPage * currentPage, elemsPerPage * (currentPage + 1));
-}
+const users = [];
 
-app.use(express.static(__dirname + './../src/index.html'));
 app.use(bodyParser.json());
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/dist/index.html'));
+app.get('/users?', (req, res) => {
+    let { usersPerPage } = req.query;
+    const { pageNumber } = req.query;
+
+    usersPerPage = Math.max(1, usersPerPage);
+
+    const firstSemafor = usersPerPage * pageNumber;
+    const secondSemafor = usersPerPage + (usersPerPage * pageNumber);
+
+    res.send(users.slice(firstSemafor, secondSemafor).map((x) => {
+        return {
+            name: x.name,
+            surname: x.surname,
+            age: x.age,
+        };
+    }));
 });
 
-app.get('/getUsers', function (req, res) {
-    const currentPage = parseInt(req.param('page'));
-    const elemsPerPage = +req.param('elems');
-    const filteredUsers = divideUsers(users, elemsPerPage, currentPage - 1);
-    res.send(filteredUsers);
-    console.log(currentPage)
-});
+app.get('/usersCounter', (req, res) => {
+    res.send(JSON.stringify(users.length));
+})
 
-app.get('/usersCount', function (req, res) {
-    const numOfUsers = Math.max(0, users.length);
-    res.send(JSON.stringify(numOfUsers));
-});
-
-app.post('/user', function (req, res) {
+app.post('/addUser', (req, res) => {
+    console.log(req.body);
     users.push(req.body);
-    res.send('User added to DB');
+    res.send(users.slice(0, 5).map((x) => {
+        return {
+            name: x.name,
+            surname: x.surname,
+            age: x.age,
+        };
+    }));
 });
 
 app.listen(3000);

@@ -2,11 +2,14 @@ import * as React from 'react';
 
 interface Props {
     toggle: boolean,
-    getInputsValue: () => void
+    getInputsValue: (name: string, surname: string, age: number) => void
 }
 
 interface State {
     isCorrect: boolean,
+    input1: string,
+    input2: string,
+    input3: number
 }
 
 class InputForm extends React.Component<Props, State> {
@@ -15,29 +18,21 @@ class InputForm extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            isCorrect: false
+            isCorrect: false,
+            input1: '',
+            input2: '',
+            input3: 0
         }
     }
 
-    changeButtonClass = () => {
-        this.setState({isCorrect: !!(this.refs.input1 as HTMLInputElement).value && !!(this.refs.input2 as HTMLInputElement).value && !!(this.refs.input3 as HTMLInputElement).value});
-        if (!this.state.isCorrect) {
-            if(!(this.refs.input1 as HTMLInputElement).value){
-                (this.refs.input1 as HTMLInputElement).style.border = '1px solid red';
-            }else{
-                (this.refs.input1 as HTMLInputElement).style.border = '1px solid black';
-            }
-            if(!(this.refs.input2 as HTMLInputElement).value){
-                (this.refs.input2 as HTMLInputElement).style.border = '1px solid red';
-            }else{
-                (this.refs.input2 as HTMLInputElement).style.border = '1px solid black';
-            }
-            if(!(this.refs.input3 as HTMLInputElement).value){
-                (this.refs.input3 as HTMLInputElement).style.border = '1px solid red';
-            }else{
-                (this.refs.input3 as HTMLInputElement).style.border = '1px solid black';
-            }
-        }
+    changeButtonClass = (input) => {
+        new Promise(((resolve, reject) => {
+            this.setState({[input.target.id]: input.target.value});
+            resolve();
+        })).then((data)=>{
+            this.setState({isCorrect: !!(this.state.input1 && this.state.input2 && this.state.input3)});
+        })
+        !(input.target as HTMLInputElement).value ?  (input.target as HTMLInputElement).style.border = '1px solid red':  (input.target as HTMLInputElement).style.border = '1px solid black';
     }
 
     render() {
@@ -45,32 +40,13 @@ class InputForm extends React.Component<Props, State> {
             return (
                 <section className={'formSection'}>
                     <form onSubmit={(e) => {
-                        this.props.getInputsValue();
+                        this.props.getInputsValue(this.state.input1, this.state.input2, this.state.input3);
                         e.preventDefault()
                     }}>
-                        <div className={'singleInput'}>
-                            <label htmlFor="input1">
-                                <span>Name: </span>
-                                <input onChange={this.changeButtonClass} id={'input1'} ref={'input1'} type="text"
-                                       placeholder={'input1'} required={true}/>
-                            </label>
-                        </div>
-                        <div className={'singleInput'}>
-                            <label htmlFor="input2">
-                                <span>Surname: </span>
-                                <input onChange={this.changeButtonClass} id={'input2'} ref={'input2'} type="text"
-                                       placeholder={'input2'} required={true}/>
-                            </label>
-                        </div>
-                        <div className={'singleInput'}>
-                            <label htmlFor="input3">
-                                <span>Age: </span>
-                                <input onChange={this.changeButtonClass} id={'input3'} ref={'input3'} type="text"
-                                       placeholder={'input3'} required={true}/>
-                            </label>
-                        </div>
-                        {this.state.isCorrect ? <button className={'correct'}>Wyslij</button> :
-                            <button className={'warning'}>Oops!</button>}
+                        <Input changeClass={this.changeButtonClass} number={1} type={'string'} name={'Name'}/>
+                        <Input changeClass={this.changeButtonClass} number={2} type={'string'} name={'Surname'}/>
+                        <Input changeClass={this.changeButtonClass} number={3} type={'number'} name={'Age'}/>
+                        {this.state.isCorrect ? <button className={'correct'}>Wyslij</button> : <button className={'warning'}>Oops!</button>}
                     </form>
                 </section>
             )
@@ -78,6 +54,22 @@ class InputForm extends React.Component<Props, State> {
             return null;
         }
     }
+}
+
+const Input = (props) => {
+    return (
+        <div className={'singleInput'}>
+            <label htmlFor={'input'+props.number}>
+                <span>{props.name}: </span>
+                <input
+                    id={'input'+props.number}
+                    type={props.type}
+                    required={true}
+                    onChange={(ev)=>props.changeClass(ev)}
+                />
+            </label>
+        </div>
+    )
 }
 
 export default InputForm;
