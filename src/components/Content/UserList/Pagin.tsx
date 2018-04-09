@@ -30,8 +30,9 @@ export default class Pagin extends React.Component<Props, State>{
     }
 
     onBack = () => {
-        if(this.props.pageNumber >= 0){
+        if(this.props.pageNumber <= 0){
             console.log('przegraczasz granice kolego');
+            console.log('costam: ',this.props.pageNumber);
         }else{
             this.props.onChangePage(this.props.pageNumber - 1);
         }
