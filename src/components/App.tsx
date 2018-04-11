@@ -33,6 +33,7 @@ class App extends React.Component<Props, State> {
             usersCounter: 0
         }
     }
+
     showList = () => {
         this.setState({toogleList: !this.state.toogleList});
     }
@@ -69,6 +70,7 @@ class App extends React.Component<Props, State> {
 
 
     }
+
     getUsersCounter = () => {
         return fetch('./api/usersCounter').then((data)=>{
             data.json().then((data2)=>{
@@ -96,12 +98,26 @@ class App extends React.Component<Props, State> {
                     this.setState({users: data2})
                     this.getUsersCounter();
                 })
-
             })
         }).catch((err) => {
             console.log(err);
         });
     }
+
+    deleteUser = (userID: number) => {
+        fetch('./api/deleteUser', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userID: userID})
+        }).then((data)=>{
+            console.log('o doszly dane lol hehehe');
+            this.getUsersFromServer();
+            this.getUsersCounter();
+        })
+}
 
     getUsersFromServer = () => {
         console.log(this.state.usersPerPage, this.state.pageNumber)
@@ -132,6 +148,7 @@ class App extends React.Component<Props, State> {
                         usersCounter={this.state.usersCounter}
                         onSliderChange={this.onSliderChange}
                         onChangePage={this.onChangePage}
+                        deleteUser={this.deleteUser}
                     />
                 </div>
             </div>

@@ -9,8 +9,8 @@ const users = [];
 app.use(bodyParser.json());
 
 app.get('/users?', (req, res) => {
-    let { usersPerPage } = req.query;
-    const { pageNumber } = req.query;
+    let {usersPerPage} = req.query;
+    const {pageNumber} = req.query;
 
     usersPerPage = Math.max(1, usersPerPage);
 
@@ -25,6 +25,11 @@ app.get('/users?', (req, res) => {
         };
     }));
 });
+
+app.post('/deleteUser', (req, res) => {
+    users.splice(req.body.userID, 1);
+    res.send(JSON.stringify('usunieto andrzeja z id: ', req.body.userID));
+})
 
 app.get('/usersCounter', (req, res) => {
     res.send(JSON.stringify(users.length));

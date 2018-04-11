@@ -1,0 +1,52 @@
+.usersList {
+  .filter {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    .filterHeader {
+      display: flex;
+      flex-direction: row;
+      label {
+        display: flex;
+        flex-direction: row;
+        span{
+          display: flex;
+        }
+        p{
+          display: flex;
+        }
+      }
+      :hover{
+        cursor: pointer;
+      }
+    }
+    .filterBody {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      label{
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        span{
+          display: flex;
+          padding: 3px;
+        }
+        input{
+          display: flex;
+        }
+      }
+    }
+  }
+  section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    button{
+      border: 0;
+      margin: 1px;
+    }
+  }
+}

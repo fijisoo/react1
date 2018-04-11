@@ -1,5 +1,3 @@
-
-
 button.warning {
   position: relative;
   display: flex;
@@ -34,4 +32,20 @@ button.correct {
 button.correct:hover {
   cursor: pointer;
   background: greenyellow;
+}
+
+button.numberPagin{
+  background-color: greenyellow;
+  border-radius: 25% 25%;
+  border: 1px solid black;
+}
+button.numberPagin:hover{
+  box-shadow: 0px 0px 3px 1px #DDDDDD;
+}
+button.leftRightPagin{
+  border-radius: 25% 25%;
+  background-color: greenyellow;
+}
+button.leftRightPagin:hover{
+  box-shadow: 0px 0px 4px #DDDDDD;
 }

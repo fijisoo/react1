@@ -1,4 +1,6 @@
 @import './_formSection';
+@import './_usersList';
+@import './_pagin';
 
 *{
   //font-family: 'Jua', sans-serif;
@@ -37,10 +39,11 @@
       justify-content: center;
       }
     .usersList{
+      width: 100%;
       display: flex;
       flex-direction: column;
       flex: 1 0 0;
-      justify-content: center;
+      align-items: center;
     }
   }
 }

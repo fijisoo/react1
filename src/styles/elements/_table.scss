@@ -1,7 +1,8 @@
 table{
   display: flex;
   flex-direction: column;
-  width: 50%;
+  padding-top: 10px;
+  width: 80%;
   thead{
     display: flex;
     flex-direction: column;
@@ -18,15 +19,18 @@ table{
     }
   }
   tbody{
-    display: flex;
+    display: table;
     flex-direction: column;
     width: 100%;
     tr{
       display: flex;
-      flex-direction: row;
-      align-items: center;
+      padding: 2px;
+      margin-top: 1px;
+      //flex-direction: row;
+      //align-items: center;
       td{
         display: flex;
+        //justify-content: space-around;
         width: 100%;
       }
     }

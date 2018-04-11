@@ -35,6 +35,8 @@ class InputForm extends React.Component<Props, State> {
         !(input.target as HTMLInputElement).value ?  (input.target as HTMLInputElement).style.border = '1px solid red':  (input.target as HTMLInputElement).style.border = '1px solid black';
     }
 
+
+
     render() {
         if (this.props.toggle) {
             return (

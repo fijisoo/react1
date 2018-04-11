@@ -1,0 +1,30 @@
+.paginSection{
+  display: flex;
+  margin-top: 7px;
+  div{
+    display: flex;
+    flex-direction: row;
+    div{
+      display: inline-flex;
+      position: relative;
+      div.hiddenPageNumbersRight{
+        display: flex;
+        justify-content: left;
+        flex-wrap: wrap;
+        width: 150px;
+        left: 0px;
+        top: 100%;
+        position: absolute;
+      }
+      div.hiddenPageNumbersLeft{
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        width: 150px;
+        right: 0px;
+        top: 100%;
+        position: absolute;
+      }
+    }
+  }
+}

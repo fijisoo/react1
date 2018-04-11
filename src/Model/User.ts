@@ -1,5 +1,6 @@
-export default class User{
-    constructor(public name: string, public surname: string, public age: number){}
+export default class User {
+    constructor(public name: string, public surname: string, public age: number) {
+    }
 
     getUser = () => {
         return {
@@ -8,4 +9,5 @@ export default class User{
             age: this.age
         }
     }
+
 }
